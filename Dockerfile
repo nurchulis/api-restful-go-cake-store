@@ -1,10 +1,10 @@
  
-FROM golang:1.19
+FROM golang:1.16
 
-RUN go install github.com/beego/bee/v2@latest
-RUN go install github.com/go-sql-driver/mysql@v1.7.0 
-RUN go install github.com/gorilla/mux@v1.8.0 
-RUN go install github.com/joho/godotenv@v1.4.0
+RUN go get github.com/beego/bee/v2@latest
+RUN go get github.com/go-sql-driver/mysql@v1.7.0 
+RUN go get github.com/gorilla/mux@v1.8.0 
+RUN go get github.com/joho/godotenv@v1.4.0
 
 ENV username=root
 ENV password=tika
