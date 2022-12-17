@@ -11,7 +11,7 @@ type (
 		Title       string    `json:"title"`
 		Description string    `name:"description"`
 		Rating      int       `json:"rating"`
-		Images      string    `name:"images"`
+		Image      string    `name:"image"`
 		CreatedAt time.Time `json:"created_at"`
 		UpdatedAt time.Time `json:"updated_at"`
 	}

@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS items(product_id int primary key auto_increment, product_name text, product_price int, created_at datetime default CURRENT_TIMESTAMP, updated_at datetime default CURRENT_TIMESTAMP)

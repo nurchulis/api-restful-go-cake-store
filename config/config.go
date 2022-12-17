@@ -28,7 +28,7 @@ func goDotEnvVariable(key string) string {
 	err := godotenv.Load(".env")
   
 	if err != nil {
-		log.Fatalf("Error loading .env file")
+		log.Fatal("Error loading .env file")
 		return ("Error")
 	}
   

@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS cakes(id int primary key auto_increment, title text, description text, rating int, image text, created_at datetime default CURRENT_TIMESTAMP, updated_at datetime default CURRENT_TIMESTAMP)

@@ -6,6 +6,8 @@ import (
 	"api-restful-cake-store/config"
 	"api-restful-cake-store/models"
 	"log"
+	"database/sql"
+	"errors"
 	"time"
 )
 
@@ -41,7 +43,7 @@ func GetAll(ctx context.Context) ([]models.Cake, error) {
 			&cake.Title,
 			&cake.Description,
 			&cake.Rating,
-			&cake.Images,
+			&cake.Image,
 			&createdAt,
 			&updatedAt); err != nil {
 			return nil, err
@@ -73,11 +75,11 @@ func Insert(ctx context.Context, cke models.Cake) error {
 		log.Fatal("Can't connect to MySQL", err)
 	}
 
-	queryText := fmt.Sprintf("INSERT INTO %v (title, description, rating, images, created_at, updated_at) values('%v','%v',%v,'%v','%v','%v')", table,
+	queryText := fmt.Sprintf("INSERT INTO %v (title, description, rating, image, created_at, updated_at) values('%v','%v',%v,'%v','%v','%v')", table,
 		cke.Title,
 		cke.Description,
 		cke.Rating,
-		cke.Images,
+		cke.Image,
 		time.Now().Format(layoutDateTime),
 		time.Now().Format(layoutDateTime))
 
@@ -90,8 +92,8 @@ func Insert(ctx context.Context, cke models.Cake) error {
 	return nil
 }
 
-func GetDetail(ctx context.Context, id) ([]models.Cake, error) {
-	log.Fatal("Cant connect to MySQL", id)
+func GetDetail(ctx context.Context, cke models.Cake) ([]models.Cake, error) {
+
 	var cakes []models.Cake
 
 	db, err := config.MySQL()
@@ -99,8 +101,8 @@ func GetDetail(ctx context.Context, id) ([]models.Cake, error) {
 	if err != nil {
 		log.Fatal("Cant connect to MySQL", err)
 	}
-
-	queryText := fmt.Sprintf("SELECT * FROM %v Order By title, rating DESC", table)
+	
+	queryText := fmt.Sprintf("SELECT * FROM %v where id = '%d'", table, cke.ID)
 
 	rowQuery, err := db.QueryContext(ctx, queryText)
 
@@ -116,7 +118,7 @@ func GetDetail(ctx context.Context, id) ([]models.Cake, error) {
 			&cake.Title,
 			&cake.Description,
 			&cake.Rating,
-			&cake.Images,
+			&cake.Image,
 			&createdAt,
 			&updatedAt); err != nil {
 			return nil, err
@@ -138,4 +140,58 @@ func GetDetail(ctx context.Context, id) ([]models.Cake, error) {
 	}
 
 	return cakes, nil
+}
+
+func Delete(ctx context.Context, cke models.Cake) error {
+
+	db, err := config.MySQL()
+
+	if err != nil {
+		log.Fatal("Can't connect to MySQL", err)
+	}
+
+	queryText := fmt.Sprintf("DELETE FROM %v where id = '%d'", table, cke.ID)
+
+	s, err := db.ExecContext(ctx, queryText)
+
+	if err != nil && err != sql.ErrNoRows {
+		return err
+	}
+
+	check, err := s.RowsAffected()
+	fmt.Println(check)
+	if check == 0 {
+		return errors.New("id tidak ada ")
+	}
+
+	return nil
+}
+
+// Update
+func Update(ctx context.Context, cke models.Cake) error {
+
+	db, err := config.MySQL()
+
+	if err != nil {
+		log.Fatal("Can't connect to MySQL", err)
+	}
+
+	queryText := fmt.Sprintf("UPDATE %v set title = '%s', description ='%s', rating = %d, image = '%s', updated_at = '%v' where id = '%d'",
+		table,
+		cke.Title,
+		cke.Description,
+		cke.Rating,
+		cke.Image,
+		time.Now().Format(layoutDateTime),
+		cke.ID,
+	)
+	fmt.Println(queryText)
+
+	_, err = db.ExecContext(ctx, queryText)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
