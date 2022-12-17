@@ -10,5 +10,10 @@ ENV username=root
 ENV password=tika
 ENV db_name=cakes
 
+ENV GO111MODULE=off
+COPY go.mod .
+COPY go.sum .
+COPY . .
+
 EXPOSE 8010
 CMD ["bee", "run"]
