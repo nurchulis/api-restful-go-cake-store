@@ -10,7 +10,7 @@ import (
 )
 
 var (
-	dsn = fmt.Sprintf("%v:%v@/%v", goDotEnvVariable("username"), goDotEnvVariable("password"), goDotEnvVariable("db_name"))
+	dsn = fmt.Sprintf("%v:%v@(%v)/%v", goDotEnvVariable("username"), goDotEnvVariable("password"), goDotEnvVariable("host"), goDotEnvVariable("db_name"))
 )
 
 func MySQL() (*sql.DB, error) {
