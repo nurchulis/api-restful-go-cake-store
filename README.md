@@ -88,10 +88,12 @@ Endpoint Deleted Data
 ```bash
     go test -v
 ```
-For List Testing Dynamic Setup on test.json, so u can set test case random not changes code
+For List Testing Dynamic Setup on test.json, so u can set test case random not changes code :
+
 ![alt text](https://i.postimg.cc/CMvHbp8B/image.png)
 
-Will Running Like this
+Will Running Like this:
+
 ![alt text](https://i.postimg.cc/bJqmJNjd/image.png)
 
 
