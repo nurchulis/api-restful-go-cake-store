@@ -55,8 +55,8 @@ docker container run -p 7000:7000 --env-file ./.env --name api-cloud-cake api-cl
 and well running in your container
 ![alt text](https://i.postimg.cc/m2WyG0jH/image.png)
 
-## Access Demo Endpoint in Here:
-http://116.193.190.246:7000 (soon on deployment)
+## Live Demo API Here
+http://116.193.190.246:7000
 
 ## Quick Test
 
