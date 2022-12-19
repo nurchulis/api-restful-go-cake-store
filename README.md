@@ -17,6 +17,11 @@ Feature Endpoint
 - Update Data By ID
 - Delete Data By ID (Only Hard Delete)
 
+
+## Live Demo API Here
+http://116.193.190.246:7000
+
+
 Structure
 
     .
@@ -55,8 +60,7 @@ docker container run -p 7000:7000 --env-file ./.env --name api-cloud-cake api-cl
 and well running in your container
 ![alt text](https://i.postimg.cc/m2WyG0jH/image.png)
 
-## Live Demo API Here
-http://116.193.190.246:7000
+
 
 ## Quick Test
 
